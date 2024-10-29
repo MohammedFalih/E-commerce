@@ -1,14 +1,16 @@
-package com.example.e_commerce.service.jwt;
+package com.example.e_commerce.service;
 
 import java.util.ArrayList;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import com.example.e_commerce.entities.User;
 import com.example.e_commerce.repository.UserRepository;
 
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private UserRepository userRepo;

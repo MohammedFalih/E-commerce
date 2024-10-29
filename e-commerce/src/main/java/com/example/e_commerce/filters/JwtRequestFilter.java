@@ -8,7 +8,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.example.e_commerce.service.jwt.UserDetailsServiceImpl;
+import com.example.e_commerce.service.UserDetailsServiceImpl;
 import com.example.e_commerce.utils.JwtUtil;
 
 import io.jsonwebtoken.io.IOException;
