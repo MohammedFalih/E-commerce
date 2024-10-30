@@ -20,7 +20,7 @@ public class SignupController {
     @PostMapping("/sign-up")
     public ResponseEntity<?> signupUser(@RequestBody SignupDTO signupDTO) {
 
-        if(userService.hasUserWithEmail(signupDTO.getEmail())) {
+        if (userService.hasUserWithEmail(signupDTO.getEmail())) {
             return new ResponseEntity<>("User already Exists", HttpStatus.NOT_ACCEPTABLE);
         }
 

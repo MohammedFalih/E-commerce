@@ -1,46 +1,47 @@
 package com.example.e_commerce.utils;
 
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
 @Service
 public class JwtUtil {
+
     private String secret_key = "";
 
     public JwtUtil() {
-        KeyGenerator keyGen;
         try {
-            keyGen = KeyGenerator.getInstance("HmacSHa256");
+            KeyGenerator keyGen = KeyGenerator.getInstance("HmacSHA256");
+            keyGen.init(256);
             SecretKey sKey = keyGen.generateKey();
             secret_key = Base64.getEncoder().encodeToString(sKey.getEncoded());
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-
     }
 
-    private String createToken(Map<String, Object> claims, String subject) {
+    private String createToken(Map<String, Object> claims, String username) {
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(subject)
+                .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
-                .signWith(getKey())
+                .signWith(getKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
@@ -58,7 +59,7 @@ public class JwtUtil {
         return Jwts.parserBuilder()
                 .setSigningKey(getKey())
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
     }
 
@@ -74,9 +75,8 @@ public class JwtUtil {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(String username, String role) {
+    public String generateToken(String username) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("role", role);
         return createToken(claims, username);
     }
 
