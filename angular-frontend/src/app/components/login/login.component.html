@@ -1,0 +1,63 @@
+<div class="bg" style="background-color: #f8f8f8">
+  <nz-spin [nzSpinning]="isSpinning" [nzSize]="'large'" nzTip="Working...">
+    <div class="parent">
+      <div class="child">
+        <div nz-row class="imgDiv">
+          <div nz-col [nzSpan]="24">
+            <h1 style="margin-left: 100px">Login</h1>
+          </div>
+        </div>
+        <form nz-form [formGroup]="validateForm" class="login-form">
+          <nz-form-item>
+            <nz-form-control
+              nzHasFeedback
+              nzErrorTip="The input is not valid E-mail!"
+            >
+              <nz-input-group
+                nzPrefixIcon="user"
+                placeholder="E-mail"
+                id="email"
+              >
+                <input
+                  type="text"
+                  nz-input
+                  placeholder="E-mail"
+                  formControlName="username"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Please input your password!">
+              <nz-input-group>
+                <input
+                  nz-input
+                  placeholder="Password"
+                  type="password"
+                  id="password"
+                  formControlName="password"
+              /></nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <div class="login-form-margin" nz-row>
+            <div nz-col [nzSpan]="12">
+              <label nz-checkbox>
+                <span>Remember me</span>
+              </label>
+            </div>
+            <div nz-col [nzSpan]="12"></div>
+          </div>
+          <button
+            nz-button
+            class="login-form-button login-form-margin"
+            [nzType]="'primary'"
+            (click)="login()"
+          >
+            Log in
+          </button>
+          or <a routerLink="/register"> register now! </a>
+        </form>
+      </div>
+    </div>
+  </nz-spin>
+</div>

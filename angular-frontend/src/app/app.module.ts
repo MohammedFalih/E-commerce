@@ -13,11 +13,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './components/register/register.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DemoNgZorroAntdModule } from './ng-zorro-antd.module';
+import { LoginComponent } from './components/login/login.component';
+import { AdminModule } from './admin/admin.module';
+import { UserModule } from './user/user.module';
 
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [AppComponent, RegisterComponent, NavbarComponent],
+  declarations: [
+    AppComponent,
+    RegisterComponent,
+    NavbarComponent,
+    LoginComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -26,7 +34,9 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     DemoNgZorroAntdModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AdminModule,
+    UserModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],
