@@ -3,6 +3,7 @@ package com.example.e_commerce.controller;
 import java.io.IOException;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -44,24 +45,37 @@ public class AuthenticationController {
     @Autowired
     private JwtUtil jwtUtil;
 
+    public static final String TOKEN_PREFIX = "Bearer ";
+
+    public static final String HEADER_STRING = "Authorization";
+
     @PostMapping("/authenticate")
-    public AuthenticationResponse createAuthenticationToken(
+    public void createAuthenticationToken(
             @RequestBody AuthenticationRequest authenticationRequest,
-            HttpServletResponse httpServletResponse) {
+            HttpServletResponse httpServletResponse)
+            throws BadCredentialsException, DisabledException, IOException, Exception {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     authenticationRequest.getUsername(), authenticationRequest.getPassword()));
         } catch (BadCredentialsException e) {
-            httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return new AuthenticationResponse("Incorrect username or password.");
+            throw new BadCredentialsException("Incorrect username or password.");
         } catch (DisabledException e) {
-            httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            return new AuthenticationResponse("User is not activated.");
+            httpServletResponse.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE, "User is not activated");
+            return;
         }
-    
+
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+        User user = userRepository.findFirstByEmail(authenticationRequest.getUsername());
         final String jwt = jwtUtil.generateToken(authenticationRequest.getUsername());
-        return new AuthenticationResponse(jwt);
+
+        httpServletResponse.getWriter()
+                .write(new JSONObject().put("UserId", user.getId()).put("role", user.getUserRole()).toString());
+
+        httpServletResponse.addHeader("Access-Control-Expose-Headers", "Authorization");
+        httpServletResponse.addHeader("Access-Control-Allow-Headers",
+                "Authorization, X-PINGGOTHER, Origin, X-Requested-With, Content-Type, Accept, X-Customheader");
+        httpServletResponse.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + jwt);
+
     }
-    
+
 }

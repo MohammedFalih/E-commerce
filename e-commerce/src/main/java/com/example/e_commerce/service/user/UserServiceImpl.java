@@ -10,11 +10,26 @@ import com.example.e_commerce.entities.User;
 import com.example.e_commerce.enums.UserRole;
 import com.example.e_commerce.repository.UserRepository;
 
+import jakarta.annotation.PostConstruct;
+
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepo;
+
+    @PostConstruct
+    public void createAdminAccount() {
+        User adminAccount = userRepo.findByUserRole(UserRole.ADMIN);
+        if (adminAccount == null) {
+            User user = new User();
+            user.setUserRole(UserRole.ADMIN);
+            user.setEmail("admin@test.com");
+            user.setName("admin");
+            user.setPassword(new BCryptPasswordEncoder().encode("admin@ad"));
+            userRepo.save(user);
+        }
+    }
 
     @Override
     public UserDTO createdUser(SignupDTO signupDTO) {
