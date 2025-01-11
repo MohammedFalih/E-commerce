@@ -1,0 +1,51 @@
+<div style="margin-bottom: 50px">
+  <nz-spin [nzSpinning]="isSpinning" [nzSize]="'large'" nzTip="Working...">
+    <div class="parent">
+      <div class="child">
+        <div class="imgDiv" nz-row>
+          <h2 style="margin-left: 230px">Add Category</h2>
+        </div>
+
+        <form nz-form [formGroup]="categoryForm">
+          <div nz-row>
+            <div nz-col nzSpan="24">
+              <nz-form-item>
+                <nz-form-control
+                  nzHasFeedback
+                  [nzXs]="24"
+                  nzErrorTip="This Input is Required!"
+                >
+                  <input nz-input placeholder="Name" formControlName="name" />
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+            <div nz-col nzSpan="24">
+              <nz-form-item>
+                <nz-form-control
+                  nzHasFeedback
+                  [nzXs]="24"
+                  nzErrorTip="This Input is Required!"
+                >
+                  <textarea
+                    nz-input
+                    placeholder="Description"
+                    formControlName="description"
+                  ></textarea>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+          <button
+            class="login-form-button login-form-margin"
+            nz-button
+            [nzType]="'primary'"
+            (click)="postCategory()"
+          >
+            Add
+          </button>
+        </form>
+      </div>
+    </div>
+  </nz-spin>
+</div>

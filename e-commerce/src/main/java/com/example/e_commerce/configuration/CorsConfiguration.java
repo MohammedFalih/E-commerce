@@ -12,9 +12,9 @@ public class CorsConfiguration {
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
-            public void addCorsMappings(CorsRegistry corsRegistry) {
+            public void addCorsMappings(@SuppressWarnings("null") CorsRegistry corsRegistry) {
                 corsRegistry.addMapping("/**").allowedOrigins("http://localhost:4200")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*");
+                        .allowedMethods("*").allowedHeaders("*").allowCredentials(true);
             }
         };
     }
