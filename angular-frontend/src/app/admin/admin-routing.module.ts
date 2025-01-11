@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AdminGuard } from '../guards/admin-guard/admin.guard';
 import { PostCategoryComponent } from './components/post-category/post-category.component';
+import { PostProductComponent } from './components/post-product/post-product.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,11 @@ const routes: Routes = [
   {
     path: 'category',
     component: PostCategoryComponent,
+    canActivate: [AdminGuard],
+  },
+  {
+    path: 'product',
+    component: PostProductComponent,
     canActivate: [AdminGuard],
   },
 ];
