@@ -1,5 +1,7 @@
 package com.example.e_commerce.entities;
 
+import com.example.e_commerce.dto.CategoryDTO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,4 +23,12 @@ public class Category {
 
     @Lob
     private String description;
+
+    public CategoryDTO getCategoryDTO() {
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setId(id);
+        categoryDTO.setName(name);
+        categoryDTO.setDescription(description);
+        return categoryDTO;
+    }
 }

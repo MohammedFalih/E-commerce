@@ -1,5 +1,8 @@
 package com.example.e_commerce.service.admin;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +22,10 @@ public class AdminServiceImpl implements AdminService {
         category.setName(categoryDTO.getName());
         category.setDescription(categoryDTO.getDescription());
         return categoryRepository.save(category);
+    }
+
+    @Override
+    public List<CategoryDTO> getAllCategories() {
+        return categoryRepository.findAll().stream().map(Category::getCategoryDTO).collect(Collectors.toList());
     }
 }
