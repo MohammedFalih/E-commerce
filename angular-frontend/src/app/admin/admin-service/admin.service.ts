@@ -37,4 +37,10 @@ export class AdminService {
       headers: this.createAuthorization(),
     })
   }
+
+  getAllProducts(): Observable<any> {
+    return this.http.get<[]>(BASIC_URL + 'api/admin/products', {
+      headers: this.createAuthorization(),
+    })
+  }
 }

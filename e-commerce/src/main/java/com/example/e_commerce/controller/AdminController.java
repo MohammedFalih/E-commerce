@@ -46,4 +46,10 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.CREATED).body(postedProduct);
     }
 
+    @GetMapping("/products")
+    public ResponseEntity<List<ProductDTO>> getAllProducts() {
+        List<ProductDTO> getProductDtoList = adminService.getAllProducts();
+        return ResponseEntity.ok(getProductDtoList);
+    }
+
 }
