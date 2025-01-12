@@ -6,9 +6,10 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PostCategoryComponent } from './components/post-category/post-category.component';
 import { DemoNgZorroAntdModule } from '../ng-zorro-antd.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PostProductComponent } from './components/post-product/post-product.component';
 
 @NgModule({
-  declarations: [DashboardComponent, PostCategoryComponent],
+  declarations: [DashboardComponent, PostCategoryComponent, PostProductComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

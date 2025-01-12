@@ -1,0 +1,35 @@
+.product {
+  width: 100%;
+  min-height: 121vh;
+  position: relative;
+}
+
+.child {
+  padding: 50px;
+  position: absolute;
+  width: 680px;
+  background-color: white;
+  top: 320px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  box-shadow: 1px 1px 15px -7px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin-bottom: 22px;
+}
+
+[nz-form] {
+  max-width: 800px;
+}
+
+[nz-col] {
+    margin-bottom: 16px;
+}
+
+nz-form-control {
+  min-width: 280px;
+}
+
+button {
+  width: 100%;
+}
