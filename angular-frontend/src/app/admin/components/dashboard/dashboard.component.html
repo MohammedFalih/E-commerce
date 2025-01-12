@@ -23,6 +23,19 @@
           <b>{{ product.categoryName }}</b>
         </h5>
         <hr />
+
+        <div style="float: right">
+          <button
+            style="margin-left: 10px"
+            nzSize="small"
+            nz-button
+            nzType="primary"
+            nzDanger
+            (click)="onDeleteProduct(product.id)"
+          >
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   </div>
