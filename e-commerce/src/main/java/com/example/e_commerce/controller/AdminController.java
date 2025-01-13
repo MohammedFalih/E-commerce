@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,6 +58,24 @@ public class AdminController {
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         adminService.deleteProduct(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{categoryId}/product/{productId}")
+    public ResponseEntity<?> updateProduct(@PathVariable Long categoryId, @PathVariable Long productId,
+            @ModelAttribute ProductDTO productDTO) throws IOException {
+        ProductDTO updatedProduct = adminService.updateProduct(categoryId, productId, productDTO);
+        if (updatedProduct == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something went wrong");
+        }
+        return ResponseEntity.ok(updatedProduct);
+    }
+
+    @GetMapping("/product/{id}")
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id) {
+        ProductDTO productDTO = adminService.getProductById(id);
+        if (productDTO == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(productDTO);
+            
     }
 
 }

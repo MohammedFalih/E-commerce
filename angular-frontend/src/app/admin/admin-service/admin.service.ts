@@ -43,6 +43,12 @@ export class AdminService {
       headers: this.createAuthorization(),
     })
   }
+ 
+  getProductById(id: number): Observable<any> {
+    return this.http.get<[]>(BASIC_URL + 'api/admin/product/' + id, {
+      headers: this.createAuthorization(),
+    })
+  }
   
   deleteProduct(id: number): Observable<any> {
     return this.http.delete<[]>(BASIC_URL + 'api/admin/product/' + id, {
