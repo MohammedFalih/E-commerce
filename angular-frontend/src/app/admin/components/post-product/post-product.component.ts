@@ -16,7 +16,7 @@ export class PostProductComponent implements OnInit {
   selectedFile: File | null;
 
   constructor(
-    private adminServie: AdminService,
+    private adminService: AdminService,
     private fb: FormBuilder,
     private notification: NzNotificationService,
     private router: Router
@@ -34,7 +34,7 @@ export class PostProductComponent implements OnInit {
   }
 
   getAllCategories() {
-    this.adminServie.getAllCategories().subscribe((res) => {
+    this.adminService.getAllCategories().subscribe((res) => {
       this.categories = res;
       console.log('All Categories: ', res);
     });
@@ -53,7 +53,8 @@ export class PostProductComponent implements OnInit {
       'description',
       this.postProductForm.get(['description'])!.value
     );
-    this.adminServie
+
+    this.adminService
       .postProduct(this.postProductForm.get(['categoryId'])!.value, productData)
       .subscribe((res) => {
         console.log(res);

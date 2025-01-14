@@ -25,22 +25,20 @@
                 <nz-form-control
                   nzHasFeedback
                   [nzXs]="24"
-                  nzErrorTip="This Input is Required!"
+                  nzErrorTip="This input is required!"
                 >
-                <select
-                id="categorySelect"
-                class="form-control"
-                formControlName="categoryId"
-                required
-              >
-                <option value="" disabled>Select a category</option>
-                <option
-                  *ngFor="let category of categories"
-                  [value]="category.id"
-                >
-                  {{ category.name }}
-                </option>
-              </select>
+                  <nz-select
+                    nzShowSearch
+                    nzAllowClear
+                    nzPlaceHolder="Select a category"
+                    formControlName="categoryId"
+                  >
+                    <nz-option
+                      *ngFor="let category of categories"
+                      nzLabel="{{ category.name }}"
+                      nzValue="{{ category.id }}"
+                    ></nz-option>
+                  </nz-select>
                 </nz-form-control>
               </nz-form-item>
             </div>
