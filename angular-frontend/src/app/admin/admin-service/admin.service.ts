@@ -49,6 +49,12 @@ export class AdminService {
       headers: this.createAuthorization(),
     })
   }
+
+  updateProduct(categoryId: number, productId: number, productDTO: any): Observable<any> {
+    return this.http.put<[]>(BASIC_URL + `api/admin/${categoryId}/product/${productId}` , productDTO, {
+      headers: this.createAuthorization(),
+    })
+  }
   
   deleteProduct(id: number): Observable<any> {
     return this.http.delete<[]>(BASIC_URL + 'api/admin/product/' + id, {

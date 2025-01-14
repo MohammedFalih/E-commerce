@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../../admin-service/admin.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-update-product',
@@ -21,7 +22,9 @@ export class UpdateProductComponent implements OnInit {
   constructor(
     private adminService: AdminService,
     private activatedRouter: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private notification: NzNotificationService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -53,6 +56,39 @@ export class UpdateProductComponent implements OnInit {
       this.categories = res;
       console.log('All Categories: ', res);
     });
+  }
+
+  updateProduct() {
+    const productDTO: FormData = new FormData();
+    if (this.imgChanged) {
+      productDTO.append('image', this.selectedFile);
+    }
+    productDTO.append('name', this.updateProductForm.get('name').value);
+    productDTO.append('price', this.updateProductForm.get('price').value);
+    productDTO.append(
+      'description',
+      this.updateProductForm.get('description').value
+    );
+
+    this.adminService
+      .updateProduct(
+        this.updateProductForm.get('categoryId').value,
+        this.id,
+        productDTO
+      )
+      .subscribe((res) => {
+        console.log('Update product response: ', res);
+        if (res != null) {
+          this.notification.success('SUCCESS', 'Product updated successfully', {
+            nzDuration: 5000,
+          });
+          this.router.navigateByUrl('/admin/dashboard');
+        } else {
+          this.notification.success('ERROR', 'Something went wrong', {
+            nzDuration: 5000,
+          });
+        }
+      });
   }
 
   onFileSelected(event: any) {
