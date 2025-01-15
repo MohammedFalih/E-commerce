@@ -25,4 +25,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     }
 
+    @Override
+    public List<ProductDTO> searchProduct(String title) {
+        return productRepository.findAllByNameContaining(title).stream().map(Product::getProductDTO)
+                .collect(Collectors.toList());
+    }
+
 }

@@ -1,3 +1,26 @@
+<form
+  nz-form
+  style="margin-top: 20px; text-align: center"
+  [formGroup]="searchForm"
+>
+  <input
+    nz-input
+    placeholder="Enter name to search"
+    nzSize="large"
+    style="width: 20%"
+    formControlName="title"
+  />
+  <button
+    nz-button
+    [nzSize]="size"
+    nzType="primary"
+    style="margin-left: 15px"
+    (click)="onSearchProduct()"
+  >
+    Search
+  </button>
+</form>
+
 <div style="background-color: #f8f8f8; min-height: 91vh">
   <div style="padding-top: 10px"></div>
 
