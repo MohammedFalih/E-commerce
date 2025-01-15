@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { UserRoutingModule } from './user-routing.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DemoNgZorroAntdModule } from '../ng-zorro-antd.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
   ],
   imports: [
     CommonModule,
-    UserRoutingModule
+    UserRoutingModule,
+    DemoNgZorroAntdModule,
   ]
 })
 export class UserModule { }
