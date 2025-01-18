@@ -1,4 +1,3 @@
-import { Token } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 
 const TOKEN = 'I_token';
@@ -29,6 +28,14 @@ export class LocalStorageService {
   static getUser() {
     return JSON.parse(localStorage.getItem(USERID));
   }
+
+  // static getUserId() {
+  //   const user = this.getUser();
+  //   if (user == null) return null;
+  //   console.log('user: ', user);
+  //   console.log('user id: ', user.userId);
+  //   return user;
+  // }
 
   static getToken(): string {
     return localStorage.getItem(TOKEN);

@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.isSpinning = true;
     console.log('validate login form: ', this.validateForm.value);
     this.authService
       .login(

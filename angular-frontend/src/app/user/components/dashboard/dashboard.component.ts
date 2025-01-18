@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CustomerService } from '../../customer.service';
 import { NzButtonSize } from 'ng-zorro-antd/button';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { element } from 'protractor';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +16,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private customerService: CustomerService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private notification: NzNotificationService
   ) {}
 
   ngOnInit(): void {
@@ -50,5 +51,16 @@ export class DashboardComponent implements OnInit {
         this.products.push(element);
       });
     });
+  }
+
+  addProductToCart(productId: number) {
+    console.log('product id: ', productId);
+    this.customerService.addProductToCart(productId).subscribe((res) => {
+      console.log('Add product to cart: ', res);
+      this.notification.success("SUCCESS", 'Product added to cart', {nzDuration: 5000})
+    }, error => {
+      console.log('Error', error)
+      this.notification.error("ERROR", 'Product already exists in cart', {nzDuration: 5000})
+    })
   }
 }

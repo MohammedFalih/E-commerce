@@ -5,6 +5,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 
 @Component({
@@ -27,7 +29,12 @@ export class RegisterComponent implements OnInit {
     return {};
   };
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private notification: NzNotificationService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.validateForm = this.fb.group({
@@ -42,6 +49,10 @@ export class RegisterComponent implements OnInit {
     console.log('form data: ', this.validateForm.value);
     this.authService.register(this.validateForm.value).subscribe((res) => {
       console.log('Response on register: ', res);
+      this.notification.success('SUCCESS', 'User Registered Successfully', {
+        nzDuration: 5000,
+      });
+      this.router.navigateByUrl('/login')
     });
   }
 }

@@ -6,8 +6,11 @@ import org.springframework.stereotype.Service;
 
 import com.example.e_commerce.dto.SignupDTO;
 import com.example.e_commerce.dto.UserDTO;
+import com.example.e_commerce.entities.Order;
 import com.example.e_commerce.entities.User;
+import com.example.e_commerce.enums.OrderStatus;
 import com.example.e_commerce.enums.UserRole;
+import com.example.e_commerce.repository.OrderRepository;
 import com.example.e_commerce.repository.UserRepository;
 
 import jakarta.annotation.PostConstruct;
@@ -17,6 +20,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepo;
+
+    @Autowired
+    private OrderRepository orderRepo;
 
     @PostConstruct
     public void createAdminAccount() {
@@ -39,6 +45,12 @@ public class UserServiceImpl implements UserService {
         user.setUserRole(UserRole.USER);
         user.setPassword(new BCryptPasswordEncoder().encode(signupDTO.getPassword()));
         User createdUser = userRepo.save(user);
+
+        Order order = new Order();
+        order.setPrice(0L);
+        order.setOrderStatus(OrderStatus.PENDING);
+        order.setUser(createdUser);
+        orderRepo.save(order); 
 
         UserDTO userDTO = new UserDTO();
         userDTO.setId(createdUser.getId());

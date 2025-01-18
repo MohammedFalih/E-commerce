@@ -46,6 +46,18 @@
           <b>{{ product.categoryName }}</b>
         </h5>
         <hr />
+
+        <div style="float: right">
+          <button
+            style="margin-left: 10px"
+            nzSize="small"
+            nz-button
+            nzType="primary"
+            (click)="addProductToCart(product.id)"
+          >
+            Add to Cart
+          </button>
+        </div>
       </div>
     </div>
   </div>

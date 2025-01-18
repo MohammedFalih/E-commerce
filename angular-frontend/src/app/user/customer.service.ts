@@ -25,9 +25,24 @@ export class CustomerService {
       headers: this.createAuthorization(),
     });
   }
-  
+
   searchProduct(title: string): Observable<any> {
-    return this.http.get<[]>(BASIC_URL + 'api/customer/product/search/' + title, {
+    return this.http.get<[]>(
+      BASIC_URL + 'api/customer/product/search/' + title,
+      {
+        headers: this.createAuthorization(),
+      }
+    );
+  }
+
+  addProductToCart(productId): Observable<any> {
+    let cartDTO = {
+      productId: productId,
+      userId: LocalStorageService.getUser(),
+    };
+    console.log('cartdto: ', cartDTO);
+
+    return this.http.post<[]>(BASIC_URL + 'api/customer/cart', cartDTO, {
       headers: this.createAuthorization(),
     });
   }
