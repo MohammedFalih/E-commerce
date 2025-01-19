@@ -1,0 +1,14 @@
+<div style="background: #ECECEC; padding: 30px;">
+    <div nz-row [nzGutter]="8" *ngIf="cartProducts">
+        <div nz-col [nzSpan]="4" *ngFor="let product of cartProducts">
+            <nz-card nzTitle="{{product.productName}}">
+                <p>Price: <strong>${{product.price}}</strong></p>
+                <p>Quantity: <strong>{{product.quantity}}</strong></p>
+            </nz-card>
+        </div>
+    </div>
+</div>
+
+<div style="margin-left: 600px;" *ngIf="cartProducts">
+    <h1>Total Bill: {{this.totalAmout}}</h1>
+</div>

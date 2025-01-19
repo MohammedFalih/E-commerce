@@ -46,4 +46,10 @@ export class CustomerService {
       headers: this.createAuthorization(),
     });
   }
+
+  getCartByUserId(): Observable<any> {
+    return this.http.get<[]>(BASIC_URL + 'api/customer/cart/' + LocalStorageService.getUser(), {
+      headers: this.createAuthorization(),
+    });
+  }
 }
